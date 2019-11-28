@@ -1,9 +1,11 @@
 #include "LTD.h"
 
 void setup(){
-
+    initLTD();
 }
 
-void loop() {
-
+void loop(){
+    update();
+    humidFan();
+    FSM();
 }

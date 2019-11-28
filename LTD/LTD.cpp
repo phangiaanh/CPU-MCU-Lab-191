@@ -103,6 +103,30 @@ void taskHeatpumpOff(){
 }
 
 void FSM(){
-
+    switch(state){
+        case READY:
+            if(flagHeater){
+                state = HEATER_ON;
+            }
+            if(flagHeatpump){
+                state = HEATPUMP_ON;
+            }
+            break;
+        case HEATER_ON:
+            if(temperature >= MAXIMUM_TEMPERATURE){
+                flagHeater = false;
+                digitalWrite(FAN_1, LOW);
+                digitalWrite(HEATER, LOW);    
+            }
+            if(!flagHeater){ // Heater is off
+                state = READY;
+            }
+            break;
+        case HEATPUMP_ON:
+            if(!flagHeatpump){
+                state = READY;
+            } 
+            break;
+    }
 }
 
