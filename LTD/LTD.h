@@ -9,10 +9,16 @@ void initLTD();
 
 void FSM();
 
-void taskHeater();
+void taskHeaterOn();
 
-void taskHeatpump();
+void taskHeatpumpOn();
+
+void taskHeaterOff();
+
+void taskHeatpumpOff();
 
 void humidFan();
+
+void update();
 
 #endif
