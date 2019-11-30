@@ -15,36 +15,38 @@
 
 #define FAN_1 3
 #define FAN_2 4
-#define FAN_3 5 
+#define FAN_3 5
 
-#define HEAT_SENSOR 6
+#define HEAT_SENSOR 5
 
 DHT sensor(HEAT_SENSOR, DHT11);
 LiquidCrystal_I2C lcd(0x3F, 16, 2);
 
 enum {READY, HEATER_ON, HEATPUMP_ON} state;
-bool flagHeater = false, flagHeatpump = false;
-float humidity = 0, temperature = 0;
+extern bool flagHeater = false, flagHeatpump = false;
+extern float humidity = 0, temperature = 0;
 
 void initLTD(){
     Serial.begin(9600);
-    Serial.println("Starting LTD...");
 
-    lcd.init();
-    sensor.begin();
+    //lcd.init();
+    //sensor.begin();
 
-    pinMode(HEATER, OUTPUT);
-    pinMode(HEATPUMP, OUTPUT);
-    pinMode(FAN_1, OUTPUT);
-    pinMode(FAN_2, OUTPUT);
-    pinMode(FAN_3, OUTPUT);
+    pinMode(HEAT_SENSOR, INPUT);
+    //pinMode(HEATER, OUTPUT);
+    //pinMode(HEATPUMP, OUTPUT);
+    //pinMode(FAN_1, OUTPUT);
+    //pinMode(FAN_2, OUTPUT);
+    //pinMode(FAN_3, OUTPUT);
 
-    initializeTimer(1000);
+    initializeTimer(100);
     addTask(taskHeaterOn, 5, HEATER_PERI);
     addTask(taskHeaterOff, 5 + HEATER_TIMEOUT, HEATER_PERI);
-    addTask(taskHeaterOn, 10 + HEATER_TIMEOUT, HEATPUMP_PERI);
-    addTask(taskHeaterOn, 10 + HEATER_TIMEOUT + HEATPUMP_TIMEOUT, HEATPUMP_PERI);
+    addTask(taskHeatpumpOn, 10 + HEATER_TIMEOUT, HEATPUMP_PERI);
+    addTask(taskHeatpumpOff, 10 + HEATER_TIMEOUT + HEATPUMP_TIMEOUT, HEATPUMP_PERI);
     startTimer();
+    
+    Serial.println("Starting LTD...");
 }
 
 void update(){

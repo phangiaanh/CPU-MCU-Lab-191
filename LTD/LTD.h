@@ -1,9 +1,10 @@
 #ifndef LTD_H
 #define LTD_H
+#include <Arduino.h>
 #include <DHT.h>
 #include <Wire.h> 
 #include <LiquidCrystal_I2C.h>
-#include "clock.h" // The scheduler
+#include "clock.h"
 
 void initLTD();
 
