@@ -9,10 +9,16 @@ void initializeTimer(uint32_t _interval){
     waitQueue = new LinkedList();
 
     
-    timer1_isr_init();
-    timer1_attachInterrupt(ISR);
-    timer1_enable(TIM_DIV16, TIM_EDGE, TIM_LOOP);
-    timer1_write(5000 * _interval); 
+    //timer1_isr_init();
+    //timer1_attachInterrupt(ISR);
+    //timer1_enable(TIM_DIV16, TIM_EDGE, TIM_LOOP);
+    //timer1_write(5000 * _interval); 
+
+    
+     timer0_isr_init();
+     timer0_attachInterrupt(ISR);
+     timer0_write(ESP.getCycleCount()+80000*_interval);
+     interrupts();
 }
 
 void startTimer(){
@@ -43,4 +49,6 @@ void stopTimer(){
 
 void ISR(){
     taskQueue->checkLinkedList(waitQueue);
+    
+   timer0_write(ESP.getCycleCount()+80000*INTERVAL);
 }

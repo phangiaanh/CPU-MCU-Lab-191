@@ -20,6 +20,6 @@ void taskHeatpumpOff();
 
 void humidFan();
 
-void update();
+void updateDHT();
 
 #endif
