@@ -2,6 +2,9 @@
 #define CLOCK_H
 #include"LinkedList.h"
 
+
+#define INTERVAL 1000
+
 void initializeTimer(uint32_t _interval);
 
 void startTimer();
