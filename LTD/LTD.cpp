@@ -2,12 +2,12 @@
 
 // Heatẻ is turned on every 10 seconds and will be timed out after 10 seconds
 #define HEATER_PERI 50
-#define HEATER_TIMEOUT 10
+#define HEATER_TIMEOUT 20
 // Heatpump is turned on every 15 seconds and will be timed out after 15 seconds
 #define HEATPUMP_PERI 50 
 #define HEATPUMP_TIMEOUT 15
 // Maximum temperature: stop the heater 
-#define MAXIMUM_TEMPERATURE 30
+#define MAXIMUM_TEMPERATURE 29
 
 
 #define HEATER D4
@@ -65,7 +65,7 @@ void humidFan(){
     if(humidity/256 >= 90){
         analogWrite(FAN_2, 1023); // Full speed
     }else{
-        analogWrite(FAN_2, (int)(humidity*1023/50000)); // Change to analog value
+        analogWrite(FAN_2, (int)(humidity*1023/80000)); // Change to analog value
     } 
 }
 
